@@ -1,16 +1,16 @@
 import { NextFunction, Request, Response } from 'express';
 import { CreateUserDto } from '@dtos/users.dto';
-import { User } from '@interfaces/users.interface';
 import userService from '@services/users.service';
+import { UserResponse } from '@/services/UserResponse';
+import { UserResponseList } from '@/services/UserResponseList';
 
 class UsersController {
   public userService = new userService();
 
   public getUsers = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const findAllUsersData: User[] = await this.userService.findAllUser();
-
-      res.status(200).json({ data: findAllUsersData, message: 'findAll' });
+      const findAllUsersData: UserResponseList = await this.userService.findAllUser();
+      res.status(200).json({ users: findAllUsersData, message: 'findAll' });
     } catch (error) {
       next(error);
     }
@@ -19,9 +19,8 @@ class UsersController {
   public getUserById = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId: string = req.params.id;
-      const findOneUserData: User = await this.userService.findUserById(userId);
-
-      res.status(200).json({ data: findOneUserData, message: 'findOne' });
+      const findOneUserData: UserResponse = await this.userService.findUserById(userId);
+      res.status(200).json({ user: findOneUserData, message: 'findOne' });
     } catch (error) {
       next(error);
     }
@@ -30,9 +29,9 @@ class UsersController {
   public createUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userData: CreateUserDto = req.body;
-      const createUserData: User = await this.userService.createUser(userData);
+      const createUserData: UserResponse = await this.userService.createUser(userData);
 
-      res.status(201).json({ data: createUserData, message: 'created' });
+      res.status(201).json({ user: createUserData, message: 'user created successfully!' });
     } catch (error) {
       next(error);
     }
@@ -42,9 +41,9 @@ class UsersController {
     try {
       const userId: string = req.params.id;
       const userData: CreateUserDto = req.body;
-      const updateUserData: User = await this.userService.updateUser(userId, userData);
+      const updateUserData: UserResponse = await this.userService.updateUser(userId, userData);
 
-      res.status(200).json({ data: updateUserData, message: 'updated' });
+      res.status(200).json({ user: updateUserData, message: 'user updated successfully!' });
     } catch (error) {
       next(error);
     }
@@ -53,9 +52,9 @@ class UsersController {
   public deleteUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId: string = req.params.id;
-      const deleteUserData: User = await this.userService.deleteUser(userId);
+      const deleteUserData: UserResponse = await this.userService.deleteUser(userId);
 
-      res.status(200).json({ data: deleteUserData, message: 'deleted' });
+      res.status(200).json({ user: deleteUserData, message: 'user deleted successfully!' });
     } catch (error) {
       next(error);
     }
