@@ -8,21 +8,26 @@ import morgan from 'morgan';
 import { connect, set } from 'mongoose';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from '@config';
+import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS, SUPER_ADMIN_EMAIL, SUPER_ADMIN_PWD } from '@config';
 import { dbConnection } from '@databases';
 import { Routes } from '@interfaces/routes.interface';
 import errorMiddleware from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
+import { UserRoleType } from './interfaces/userRoleType.interface';
+import { UserStatus } from './interfaces/userStatus.interface';
+import { SuperAdminSignup } from './interfaces/users.interface';
 
-class App {
+class App{
   public app: express.Application;
   public env: string;
   public port: string | number;
+  private createSuperAdmin: SuperAdminSignup; // dependency Inversion => to achieve loose coupling between AuthService & App class
 
-  constructor(routes: Routes[]) {
+  constructor(routes: Routes[], createSuperAdmin: SuperAdminSignup) {
     this.app = express();
     this.env = NODE_ENV || 'development';
     this.port = PORT || 3000;
+    this.createSuperAdmin = createSuperAdmin;
 
     this.connectToDatabase();
     this.initializeMiddlewares();
@@ -31,17 +36,29 @@ class App {
     this.initializeErrorHandling();
   }
 
-  public listen() {
+  public async listen() {
     this.app.listen(this.port, () => {
       logger.info(`=================================`);
       logger.info(`======= ENV: ${this.env} =======`);
       logger.info(`🚀 App listening on the port ${this.port}`);
       logger.info(`=================================`);
     });
+    await this.initApp()
   }
 
   public getServer() {
     return this.app;
+  }
+
+  // signup a user as SUPER_ADMIN on app initialization
+  private async initApp() {
+    await this.createSuperAdmin.signup({ 
+    "email": SUPER_ADMIN_EMAIL, 
+    "password": SUPER_ADMIN_PWD,         
+    "name":"SUPER_ADMIN",             
+    "role":UserRoleType.SUPER_ADMIN,
+    "status":UserStatus.ACTIVE,
+    "date_joined":new Date()})
   }
 
   private connectToDatabase() {
