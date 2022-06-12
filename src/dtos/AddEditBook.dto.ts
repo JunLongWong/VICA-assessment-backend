@@ -1,6 +1,4 @@
-import { BookAvailability } from '@/interfaces/bookAvailability.enum';
-import { BookStatus } from '@/interfaces/bookStatus.enum';
-import { IsString, IsNotEmpty, IsEnum, IsNumber } from 'class-validator';
+import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class AddEditBookDto {
   @IsNotEmpty()
