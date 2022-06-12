@@ -1,24 +1,29 @@
-import { IsEmail, IsString, IsDate } from 'class-validator';
+import { UserRoleType } from '@/interfaces/userRoleType.interface';
+import { UserStatus } from '@/interfaces/userStatus.interface';
+import { IsEmail, IsString, IsDate, IsNotEmpty, IsEnum } from 'class-validator';
 
 export class CreateUserDto {
+  @IsNotEmpty()
   @IsEmail()
   public email: string;
 
+  @IsNotEmpty()
   @IsString()
   public password: string;
 
-  // @IsString()
-  // public name: string;
-  
-  // @IsString()
-  // public role: string;
-  
-  // @IsString()
-  // public status: string;
+  @IsNotEmpty()
+  @IsString()
+  public name: string;
 
+  @IsNotEmpty()
+  @IsEnum(UserRoleType)
+  public role: UserRoleType;
+
+  @IsNotEmpty()
+  @IsEnum(UserStatus)
+  public status: UserStatus = UserStatus.ANALYSE;
+
+  @IsNotEmpty()
   @IsDate()
-  public date_joined: Date;
-
-
-  // datejoined
+  public date_joined: Date = new Date();
 }
