@@ -1,5 +1,5 @@
-import { UserRoleType } from '@/interfaces/userRoleType.interface';
-import { UserStatus } from '@/interfaces/userStatus.interface';
+import { UserRoleType } from '@/interfaces/userRoleType.enum';
+import { UserStatus } from '@/interfaces/userStatus.enum';
 import { IsEmail, IsString, IsDate, IsNotEmpty, IsEnum } from 'class-validator';
 
 export class CreateUserDto {
