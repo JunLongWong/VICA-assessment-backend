@@ -13,15 +13,15 @@ import { dbConnection } from '@databases';
 import { Routes } from '@interfaces/routes.interface';
 import errorMiddleware from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
-import { UserRoleType } from './interfaces/userRoleType.interface';
-import { UserStatus } from './interfaces/userStatus.interface';
+import { UserRoleType } from './interfaces/userRoleType.enum';
+import { UserStatus } from './interfaces/userStatus.enum';
 import { SuperAdminSignup } from './interfaces/users.interface';
 
-class App{
+class App {
   public app: express.Application;
   public env: string;
   public port: string | number;
-  private createSuperAdmin: SuperAdminSignup; // dependency Inversion => to achieve loose coupling between AuthService & App class
+  private createSuperAdmin: SuperAdminSignup; // Dependency Inversion => to achieve loose coupling between UserService & App class
 
   constructor(routes: Routes[], createSuperAdmin: SuperAdminSignup) {
     this.app = express();
@@ -43,7 +43,7 @@ class App{
       logger.info(`🚀 App listening on the port ${this.port}`);
       logger.info(`=================================`);
     });
-    await this.initApp()
+    await this.initApp();
   }
 
   public getServer() {
@@ -52,26 +52,33 @@ class App{
 
   // signup a user as SUPER_ADMIN on app initialization
   private async initApp() {
-    await this.createSuperAdmin.signup({ 
-    "email": SUPER_ADMIN_EMAIL, 
-    "password": SUPER_ADMIN_PWD,         
-    "name":"SUPER_ADMIN",             
-    "role":UserRoleType.SUPER_ADMIN,
-    "status":UserStatus.ACTIVE,
-    "date_joined":new Date()})
+    await this.createSuperAdmin.createUser({
+      email: SUPER_ADMIN_EMAIL,
+      password: SUPER_ADMIN_PWD,
+      name: 'SUPER_ADMIN',
+      role: UserRoleType.SUPER_ADMIN,
+      status: UserStatus.ACTIVE,
+      date_joined: new Date(),
+    });
   }
 
-  private connectToDatabase() {
+  private async connectToDatabase() {
     if (this.env !== 'production') {
       set('debug', true);
     }
-    
-    connect(dbConnection.url, dbConnection.options)
-    .then(()=>{console.log("Connected to database successfully!")})
-    .catch((err)=>{
-      console.log(err + "\n" +"Database connection failed! Exiting now...")
-      process.exit(1);
-    });
+
+    await connect(dbConnection.url, dbConnection.options)
+      .then(result => {
+        console.log('DB readyState : ' + result.connection.readyState);
+        console.log('DB connection host :' + result.connection.host);
+        console.log('Connected to database successfully!');
+      })
+      .catch(err => {
+        console.log(err + '\n' + 'Database connection failed! Exiting now...');
+      })
+      .then(() => {
+        return (process.exitCode = 1);
+      });
   }
 
   private initializeMiddlewares() {
