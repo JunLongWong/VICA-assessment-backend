@@ -1,13 +1,13 @@
 import { hash } from 'bcryptjs';
 import { CreateUserDto } from '@dtos/users.dto';
 import { HttpException } from '@exceptions/HttpException';
-import { User } from '@interfaces/users.interface';
+import { SuperAdminSignup, User } from '@interfaces/users.interface';
 import { userModel } from '@models/users.model';
 import { isEmpty } from '@utils/util';
 import { UserResponse } from './UserResponse';
 import { UserResponseList } from './UserResponseList';
 
-class UserService {
+class UserService implements SuperAdminSignup {
   public users = userModel;
 
   public async findAllUser(): Promise<UserResponseList> {
@@ -25,6 +25,7 @@ class UserService {
     return new UserResponse(findUser);
   }
 
+  // Also used to add SUPER_ADMIN upon app initialization
   public async createUser(userData: CreateUserDto): Promise<UserResponse> {
     if (isEmpty(userData)) throw new HttpException(400, 'Please fill up all required fields');
 
