@@ -1,6 +1,7 @@
 import { CreateUserDto } from '@/dtos/users.dto';
-import { UserRoleType } from './userRoleType.interface';
-import { UserStatus } from './userStatus.interface';
+import { UserResponse } from '@/services/UserResponse';
+import { UserRoleType } from './userRoleType.enum';
+import { UserStatus } from './userStatus.enum';
 
 export interface User {
   _id: string;
@@ -13,5 +14,5 @@ export interface User {
 }
 
 export interface SuperAdminSignup {
-  signup(userData: CreateUserDto):Promise<User>;
+  createUser(userData: CreateUserDto): Promise<UserResponse>;
 }
