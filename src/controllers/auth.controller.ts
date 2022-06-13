@@ -6,19 +6,6 @@ import { loginDto } from '@/dtos/login.dto';
 
 class AuthController {
   public authService = new AuthService();
-  
-  // not required according to project specs
-  // public signUp = async (req: Request, res: Response, next: NextFunction) => {
-  //   try {
-  //     const userData: CreateUserDto = req.body;
-  //     const signUpUserData: User = await this.authService.signup(userData);
-  //     res
-  //       .status(201)
-  //       .json({ user: [{name: signUpUserData.name, email: signUpUserData.email, role: signUpUserData.role, status: signUpUserData.status}], message: 'user signup successful !' });
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // };
 
   public logIn = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -37,7 +24,7 @@ class AuthController {
       const logOutUserData: User = await this.authService.logout(userData);
 
       res.setHeader('Set-Cookie', ['Authorization=; Max-age=0']);
-      res.status(200).json({ user: [{email : logOutUserData.email, name: logOutUserData.name}], message: 'logout success.' });
+      res.status(200).json({ user: [{ email: logOutUserData.email, name: logOutUserData.name }], message: 'logout success.' });
     } catch (error) {
       next(error);
     }
