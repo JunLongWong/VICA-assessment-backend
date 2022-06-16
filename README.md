@@ -26,7 +26,7 @@ Backend is not storing any session information. Hence, during auth process, serv
 - Documents in borrowing-history field could grow & become unwieldy given the unbounded cardinality of this relation design & could easily exceed the 16MB size limit per document.
 
 #### Assumption: 
--  A book is assumed to be the ‘same book’ if attributes (title,description,genre,author,published_year) between records is the same.
+-  A book is assumed to be the ‘same book’ if attributes (title,description,genre,author,published_year) between records are similar.
 ## <b>Installation</b>
 
 - Install Docker
