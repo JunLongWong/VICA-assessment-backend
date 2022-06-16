@@ -11,20 +11,7 @@ import { loginDto } from '@/dtos/login.dto';
 class AuthService {
   public users = userModel;
 
-
-  // public async signup(userData: CreateUserDto): Promise<User> {
-  //   if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
-
-  //   const findUser: User = await this.users.findOne({ email: userData.email });
-  //   if (findUser) throw new HttpException(409, `Your email: ${userData.email} already exists`);
-
-  //   const hashedPassword = await hash(userData.password, 10);
-  //   const createdUserData: User = await this.users.create({ ...userData, password: hashedPassword });
-
-  //   return createdUserData;
-  // }
-
-  public async login(userData: loginDto): Promise<{ token: string }> {
+  public async login(userData: loginDto): Promise<{ token: string, userid: string }> {
     if (isEmpty(userData)) throw new HttpException(400, 'Please provide your login credentials !');
 
     const findUser: User = await this.users.findOne({ email: userData.email });
@@ -35,7 +22,7 @@ class AuthService {
 
     const tokenData = this.createToken(findUser);
 
-    return { token: tokenData.token };
+    return { token: tokenData.token, userid: findUser._id };
   }
 
   public async logout(userData: User): Promise<User> {
