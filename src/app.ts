@@ -55,7 +55,7 @@ class App {
     await this.createSuperAdmin.createUser({
       email: SUPER_ADMIN_EMAIL,
       password: SUPER_ADMIN_PWD,
-      name: 'SUPER_ADMIN',
+      name: 'JOHN_SUPER_ADMIN',
       role: UserRoleType.SUPER_ADMIN,
       status: UserStatus.ACTIVE,
       date_joined: new Date(),
