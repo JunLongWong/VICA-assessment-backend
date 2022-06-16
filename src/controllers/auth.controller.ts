@@ -10,14 +10,15 @@ class AuthController {
   public logIn = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userData: loginDto = req.body;
-      const { token } = await this.authService.login(userData);
+      const { token, userid } = await this.authService.login(userData);
 
-      res.status(200).json({ token, status: 'logged in successfully !' });
+      res.status(200).json({ token, userid, status: 'logged in successfully !' });
     } catch (error) {
       next(error);
     }
   };
 
+  // not used currently. might be useful in future
   public logOut = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
       const userData: User = req.user;
