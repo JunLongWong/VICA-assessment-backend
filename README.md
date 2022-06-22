@@ -14,6 +14,9 @@ Implemented JWT for authentication and authorization.
 Backend is not storing any session information. Hence, during auth process, server does not need to access session date stored somewhere, each request can be processed by a different process/machine efficiently. No data saved in RAM nor required to perform storage I/O, resulting in high scalability.
 
 #### MongoDB Schema Design:
+DB Model Diagram
+   ![Schema diagram](https://github.com/JunLongWong/VICA-assessment-backend/src/models/Mongo_Schema.png)
+
 - User, Book, BorrowingHistory Collections
 - Opt to model unbounded 1-to-Many relationship with Parent References for Book <=> Borrowing-History Collections
 - Book Availability[Yet to complete]: Book will be 'AVAILABLE' when its quantity is >= 1 
