@@ -23,7 +23,4 @@ export class AddEditBorrowingHistoryDto {
   @IsEnum(BookStatus)
   public status: BookStatus;
 
-  @IsNotEmpty()
-  @IsEnum(BookAvailability)
-  public availability: BookAvailability;
 }
