@@ -8,5 +8,4 @@ export interface BorrowingHistory {
   date_borrowed: Date;
   date_returned: Date;
   status: BookStatus;
-  availability: BookAvailability;
 }
