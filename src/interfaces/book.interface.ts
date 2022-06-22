@@ -1,3 +1,5 @@
+import { BookAvailability } from "./bookAvailability.enum";
+
 export interface Book {
   _id: string;
   title: string;
@@ -6,4 +8,5 @@ export interface Book {
   author: string;
   published_year: number;
   quantity: number;
+  // availability: BookAvailability;
 }
