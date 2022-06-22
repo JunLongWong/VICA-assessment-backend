@@ -1,7 +1,7 @@
 # <b>Description</b> #
 
 GovTech VICA Assessment - Backend.</br>
-## ****This project is still under active development****
+## This project is still under active development
 
 ## <b>Techstack Used:</b>
 
@@ -16,6 +16,9 @@ Backend is not storing any session information. Hence, during auth process, serv
 #### MongoDB Schema Design:
 - User, Book, BorrowingHistory Collections
 - Opt to model unbounded 1-to-Many relationship with Parent References for Book <=> Borrowing-History Collections
+- Book Availability: Book will be 'AVAILABLE' when its quantity is >= 1 
+- Borrow Logic[Yet to complete]: Create new document in BorrowingHistory Collection && Search for Book._id in Books Collection, decrement its quantity && update Book Availability.
+- Return Logic[Yet to complete]: Update return_date in BorrowingHistory, find book._id in Books Collection, increment quantity && update book availability.
 
 #### Advantage:
 - clearly 1 to many relationship where amount of related borrowing documents is unbounded.
