@@ -15,7 +15,7 @@ Backend is not storing any session information. Hence, during auth process, serv
 
 #### MongoDB Schema Design:
 DB Model Diagram
-   ![Schema diagram](https://github.com/JunLongWong/VICA-assessment-backend/src/models/Mongo_Schema.png)
+   ![Schema diagram](https://github.com/JunLongWong/VICA-assessment-backend/blob/main/src/models/Mongo_Schema.png)
 
 - User, Book, BorrowingHistory Collections
 - Opt to model unbounded 1-to-Many relationship with Parent References for Book <=> Borrowing-History Collections
