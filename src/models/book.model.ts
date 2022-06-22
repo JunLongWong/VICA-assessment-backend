@@ -1,5 +1,6 @@
 import { model, Schema } from 'mongoose';
 import { Book } from '@/interfaces/book.interface';
+import { BookAvailability } from '@/interfaces/bookAvailability.enum';
 
 const bookSchema = new Schema<Book>({
   title: {
@@ -26,6 +27,10 @@ const bookSchema = new Schema<Book>({
     type: Number,
     required: true,
   },
+  // availability: {
+  //   type: BookAvailability,
+  //   required: true,
+  // }
 });
 
 // creation of book model
