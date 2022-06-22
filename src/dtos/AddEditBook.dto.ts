@@ -24,4 +24,8 @@ export class AddEditBookDto {
   @IsNotEmpty()
   @IsNumber()
   public quantity: number;
+
+  // @IsNotEmpty()
+  // @IsEnum(BookAvailability)
+  // public availability: BookAvailability;
 }
