@@ -23,10 +23,6 @@ const borrowingHistorySchema = new Schema<BorrowingHistory>({
     type: BookStatus,
     required: true,
   },
-  availability: {
-    type: BookAvailability,
-    required: true,
-  },
 });
 
 // creation of borrowingHistory model
