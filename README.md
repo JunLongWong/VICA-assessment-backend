@@ -79,6 +79,15 @@ Routes => Controllers => Service => return response data (had defined custom cla
 
 - docker-compose up --build
 
+## <b>Improvements</b>
+
+Due to time constraints, several core features & practices are missing:
+- Borrowing & Returning Of Books API
+- Borrowing History Models
+- TDD
+- Unit testing
+- Handling Of edge cases
+- More robust validation logic
 
 ## <b>Stay in touch</b>
 
