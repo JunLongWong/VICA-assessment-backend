@@ -20,13 +20,13 @@ class UsersRoute implements Routes {
     this.router.get(
       `${this.path}`,
       authMiddleware,
-      permisssionMiddleware([UserRoleType.SUPER_ADMIN, UserRoleType.ADMIN, UserRoleType.EDITOR]),
+      permisssionMiddleware([UserRoleType.SUPER_ADMIN, UserRoleType.ADMIN, UserRoleType.EDITOR,UserRoleType.MEMBER]),
       this.usersController.getUsers,
     );
     this.router.get(
       `${this.path}/:id`,
       authMiddleware,
-      permisssionMiddleware([UserRoleType.SUPER_ADMIN, UserRoleType.ADMIN, UserRoleType.EDITOR]),
+      permisssionMiddleware([UserRoleType.SUPER_ADMIN, UserRoleType.ADMIN, UserRoleType.EDITOR,UserRoleType.MEMBER]),
       this.usersController.getUserById,
     );
     this.router.post(
