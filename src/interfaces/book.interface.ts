@@ -8,5 +8,5 @@ export interface Book {
   author: string;
   published_year: number;
   quantity: number;
-  // availability: BookAvailability;
+  availability: BookAvailability;
 }

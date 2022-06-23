@@ -27,10 +27,11 @@ const bookSchema = new Schema<Book>({
     type: Number,
     required: true,
   },
-  // availability: {
-  //   type: BookAvailability,
-  //   required: true,
-  // }
+  availability: {
+    type: BookAvailability,
+    default: BookAvailability.AVAILABLE,
+    required: true,
+  }
 });
 
 // creation of book model

@@ -5,6 +5,7 @@ import { Book } from '@/interfaces/book.interface';
 import { AddEditBookDto } from '@/dtos/AddEditBook.dto';
 import { BookResponse } from './BookResponse';
 import { BookResponseList } from './BookResponseList';
+import { BookAvailability } from '@/interfaces/bookAvailability.enum';
 
 class BookService {
   public books = bookModel;
@@ -43,6 +44,9 @@ class BookService {
       published_year: bookData.published_year,
     });
 
+    // if (findBook) throw new HttpException(409, 
+    //   `Your book ${findBook.title} already exists`);
+
     // create book if book doesn't exist
     if (!findBook) {
       const createBook: Book = await this.books.create({ ...bookData, quantity: bookData.quantity });
@@ -56,7 +60,16 @@ class BookService {
   }
 
   public async updateBook(bookId: string, bookData: AddEditBookDto): Promise<BookResponse> {
+    bookData.quantity = bookData.quantity | 0
     if (bookData.quantity < 0) throw new HttpException(400, 'Book Quantity cannot be negative !');
+
+    if (bookData.quantity === 0) {
+      bookData = { ...bookData, availability: BookAvailability.UNAVAILABLE }
+    }
+    if (bookData.quantity > 0) {
+      bookData = { ...bookData, availability: BookAvailability.AVAILABLE }
+    }
+
     if (isEmpty(bookData)) throw new HttpException(400, 'Please fill up all required fields');
 
     const updateBookById: Book = await this.books.findByIdAndUpdate(bookId, { ...bookData });

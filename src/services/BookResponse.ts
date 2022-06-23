@@ -9,7 +9,8 @@ export class BookResponse {
   @IsString() private readonly author: string;
   @IsString() private readonly published_year: number;
   @IsString() private readonly quantity: number;
-
+  @IsString() private readonly availability: string;
+  
   constructor(book: Book) {
     this._id = book._id;
     this.title = book.title;
@@ -18,5 +19,6 @@ export class BookResponse {
     this.author = book.author;
     this.published_year = book.published_year;
     this.quantity = book.quantity;
+    this.availability = book.availability;
   }
 }
