@@ -19,7 +19,7 @@ DB Model Diagram
 
 - User, Book, BorrowingHistory Collections
 - Opt to model unbounded 1-to-Many relationship with Parent References for Book <=> Borrowing-History Collections
-- Book Availability[Yet to complete]: Book will be 'AVAILABLE' when its quantity is >= 1 
+- Book Availability: Book will be 'AVAILABLE' when its quantity is >= 1 
 - Borrow Logic[Yet to complete]: Create new document in BorrowingHistory Collection && Search for Book._id in Books Collection, decrement its quantity && update Book Availability.
 - Return Logic[Yet to complete]: Update return_date in BorrowingHistory, find book._id in Books Collection, increment quantity && update book availability.
 - Last Borrower[Yet to complete]: Query BorrowingHistory Collection,
