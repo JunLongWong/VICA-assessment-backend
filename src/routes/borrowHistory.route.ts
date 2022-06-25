@@ -8,7 +8,7 @@ import { AddEditBorrowingHistoryDto } from '@/dtos/AddEditBorrowingHistory.dto';
 import BorrowHistoryController from '@/controllers/borrowHistory.controller';
 
 class BorrowHistoryRoute implements Routes {
-  public path = '/borrow-history';
+  public path = '/borrowhistory';
   public router = Router();
   public borrowHistoryController = new BorrowHistoryController();
 
@@ -17,6 +17,12 @@ class BorrowHistoryRoute implements Routes {
   }
 
   private initializeRoutes() {
+    this.router.get(
+      `${this.path}`,
+      authMiddleware,
+      permisssionMiddleware([UserRoleType.SUPER_ADMIN, UserRoleType.ADMIN]),
+      this.borrowHistoryController.getBorrowingHistory,
+    );
     this.router.get(
       `${this.path}/:id`,
       authMiddleware,
