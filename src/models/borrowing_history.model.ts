@@ -1,20 +1,22 @@
-import { BookAvailability } from '@/interfaces/bookAvailability.enum';
 import { BookStatus } from '@/interfaces/bookStatus.enum';
 import { BorrowingHistory } from '@/interfaces/borrowingHistory.interface';
 import { model, Schema } from 'mongoose';
 
 const borrowingHistorySchema = new Schema<BorrowingHistory>({
   user: {
-    type: Object,
-    required: true,
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true
   },
   book: {
-    type: Object,
+    type: Schema.Types.ObjectId,
+    ref: "Book",
     required: true,
   },
   date_borrowed: {
     type: Date,
     required: true,
+    default: Date.now,
   },
   date_returned: {
     type: Date,
@@ -22,6 +24,7 @@ const borrowingHistorySchema = new Schema<BorrowingHistory>({
   status: {
     type: BookStatus,
     required: true,
+    default: BookStatus.BORROWED
   },
 });
 
