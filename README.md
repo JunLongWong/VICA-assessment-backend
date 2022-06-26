@@ -20,8 +20,8 @@ DB Model Diagram
 - User, Book, BorrowingHistory Collections
 - Opt to model unbounded 1-to-Many relationship with Parent References for Book <=> Borrowing-History Collections
 - Book Availability: Book will be 'AVAILABLE' when its quantity is >= 1 
-- Borrow Logic[Yet to complete]: Create new document in BorrowingHistory Collection && Search for Book._id in Books Collection, decrement its quantity && update Book Availability.
-- Return Logic[Yet to complete]: Update return_date in BorrowingHistory, find book._id in Books Collection, increment quantity && update book availability.
+- Borrow Logic: Create new document in BorrowingHistory Collection && Search for Book._id in Books Collection, decrement its quantity by 1 && update Book Availability.
+- Return Logic: Update date_returned in BorrowingHistory, find book._id in Books Collection, increment quantity by 1 && update book availability.
 - Last Borrower[Yet to complete]: Query BorrowingHistory Collection,
 filter the particular book._id with borrow-date order by desc & get the user(last borrower).
 
@@ -70,10 +70,11 @@ Routes => Controllers => Service => return response data (had defined custom cla
 - PUT: localhost:3000/books/{id}
 - DELETE: localhost:3000/books/{id}
 
-#### Borrowing Management: [Yet to complete]
-- GET: localhost:3000/borrow-history/{id}
-- POST: localhost:3000/borrow-history 
-- PUT: localhost:3000/borrow-history/{id}
+#### Borrowing Management:
+- GET: localhost:3000/borrowhistory/
+- GET: localhost:3000/borrowhistory/{id}
+- POST: localhost:3000/borrowhistory
+- PUT: localhost:3000/borrowhistory/{id}
 
 ### <b>Run app with docker</b>
 
