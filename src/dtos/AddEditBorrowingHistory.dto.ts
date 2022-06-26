@@ -1,26 +1,28 @@
-
-import { BookAvailability } from '@/interfaces/bookAvailability.enum';
 import { BookStatus } from '@/interfaces/bookStatus.enum';
-import { IsString, IsNotEmpty, IsNumber, IsObject, IsDate, IsEnum } from 'class-validator';
+import { IsNotEmpty, IsObject, IsDate, IsEnum, IsNumber, IsOptional } from 'class-validator';
+import { ObjectId } from 'mongoose';
 
 export class AddEditBorrowingHistoryDto {
   @IsNotEmpty()
-  @IsObject()
-  public user: Object;
+  public user: ObjectId;
 
   @IsNotEmpty()
-  @IsObject()
-  public book: Object;
-
-  @IsNotEmpty()
-  @IsDate()
-  public date_borrowed: Date = new Date();
+  public book: ObjectId;
 
   @IsDate()
-  public date_returned: Date;
+  @IsOptional()
+  public date_borrowed?: Date;
 
-  @IsNotEmpty()
+  @IsDate()
+  @IsOptional()
+  public date_returned?: Date;
+
+  @IsOptional()
   @IsEnum(BookStatus)
-  public status: BookStatus;
+  public status?: BookStatus;
+
+  @IsOptional()
+  @IsNumber()
+  public qty?: number = 1;
 
 }
