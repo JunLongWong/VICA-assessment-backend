@@ -1,10 +1,10 @@
-import { BookAvailability } from "./bookAvailability.enum";
+import { ObjectId } from "mongoose";
 import { BookStatus } from "./bookStatus.enum";
 
 export interface BorrowingHistory {
   _id: string;
-  user: Object;
-  book: Object;
+  user: ObjectId;
+  book: ObjectId;
   date_borrowed: Date;
   date_returned: Date;
   status: BookStatus;
