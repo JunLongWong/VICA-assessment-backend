@@ -6,6 +6,15 @@ import { NextFunction, Request, Response } from 'express';
 class BorrowHistoryController {
   public borrowHistoryService = new BorrowHistoryService();
 
+  public getBorrowingHistory = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const findAllBorrowingHistoryData: BorrowingHistory[] = await this.borrowHistoryService.findAllBorrowingHistory();
+      res.status(200).json({ BorrowingHistory: findAllBorrowingHistoryData, message: 'findAll' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
   public getBorrowHistoryById = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const borrowHistoryId: string = req.params.id;
@@ -16,17 +25,18 @@ class BorrowHistoryController {
     }
   };
 
+  // Borrow
   public createBorrowHistory = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const borrowHistoryData: AddEditBorrowingHistoryDto = req.body;
       const createBorrowHistoryData: BorrowingHistory = await this.borrowHistoryService.createBorrowHistory(borrowHistoryData);
-
       res.status(201).json({ BorrowingHistory: createBorrowHistoryData, message: 'Borrow history created successfully!' });
     } catch (error) {
       next(error);
     }
   };
 
+  // Return 
   public updateBorrowHistory = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const borrowHistoryId: string = req.params.id;
